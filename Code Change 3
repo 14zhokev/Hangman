@@ -1,0 +1,55 @@
+import random
+
+wordList = ["amsterdam", "washington", "auckland", "london", "sydney", "tokyo", "beijing", "rome", "berlin", "paris", "shanghai", "hamburg", "queenstown", "frankfurt", "dublin"]
+guessAllowed = 10
+incorrectGuess = 0
+
+def getWord():
+     random.choice(wordList)
+     print("Here is the word: ")
+     blankWord = "_ " * len(random.choice(wordList))
+     print()
+
+def getWord():
+    global incorrectGuesses
+    print(blankWord)
+    print()
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    incorrectGuess = 0
+    guessChance = 10
+    print("You have 10 guesses. ")
+    print("Note: Integer and alphabet does not count as a guess. ")
+    print()
+    while incorrectGuess < guessChance:
+        guess = input("Guess a letter. ")
+        guess = guess.lower()
+        if len(guess) !=1:
+            print("Single letter only. ")
+            print()
+        elif guess not in alphabet:
+            print("Not a letter. ")
+            print()
+        elif guess not in blankWord:
+            incorrectGuess +=1
+            hangmanGrahpics[incorrectGuess]
+            print("You have {} incorrect guesses. It is 10 incorrect guesses and it is game over. ".format(incorrectGuess))
+            print()
+        elif guess in blankWord:
+            print("You have guessed a right letter. ")
+
+def playAgain():
+    while True:
+        playAgain = input("Want to play again? ")
+        if playAgain in ["yes", "Yes", "no", "No"]:
+            break
+        else:
+            print("Not a choice. ")
+            if playAgain in ["yes", "Yes"]:
+                return gameIntro()
+            elif playAgain in ["no", "No"]:
+                quit
+
+getGuess()
+getWord()
+playAgain()
+
