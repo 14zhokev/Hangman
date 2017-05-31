@@ -1,0 +1,81 @@
+#HANGMAN by Kevin Zhong
+
+import random #to select a word from the list
+import time #time 
+
+
+
+def playAgain():
+    while True:
+        playAgain = input("Want to play again? ")
+        if playAgain in ["yes", "Yes", "no", "No"]:
+            break
+        else:
+            print("Not a choice. ")
+            if playAgain in ["yes", "Yes"]:
+                return gameIntro()
+            elif playAgain in ["no", "No"]:
+                quit
+
+def gameIntro(): #Program begins with asking user for their name
+    yourName = input("What is your name? ")
+    print("Welcome to Hangman, {}.".format(yourName))
+    print()
+    #game = input("How many rounds do you want? ")
+    #return game
+    #time.sleep(2)
+    #print("Let's play Hangman. ")
+    #print()
+
+def getWord(): #function for wordlist user will be guessing from
+    wordList = ["amsterdam", "washington", "auckland", "london", "sydney", "tokyo", "beijing", "rome", "berlin", "paris", "shanghai", "hamburg", "queenstown", "frankfurt", "dublin"]
+    chosenWord = random.choice(wordList)
+   # blankWord = "_ " * len(random.choice(wordList)) #gives the length of the word with '_' 
+    return chosenWord
+
+
+
+def getGuess(alreadyGuessed, alphabet, guessAllowed, incorrectGuess):
+    chosenWord = getWord() #passed down from def getWord()
+    blankWord = "_ " * len(random.choice(wordList)) #gives the length of the word with '_' 
+    print(blankWord) #prints the blankWord from above in def getWord()
+    print("You have 10 guesses. ")
+    print("Note: Integer and alphabet does not count as a guess. ")
+    print()
+    while incorrectGuess < guessAllowed:
+        guess = input("Guess a letter. ").lower()
+        if len(guess) !=1: #single letter input only
+            print("Single letter only. ")
+            print()
+        elif guess not in alphabet: #alphabetical value input only
+            print("Not a letter. ")
+            print()
+        elif guess not in chosenWord: #guess not in the chosen word
+            incorrectGuess +=1
+            print("That is incorrect. You have {} incorrect guesses. It is 10 incorrect guesses and it is game over. ".format(incorrectGuess))
+            print()
+            #alreadyGuessed #add the guess in to this list
+            alreadyGuessed = alreadyGuessed + guess
+            print("Already guessed ", alreadyGuessed)
+        else:
+            print("You guessed it. ")
+
+#main routine
+win = False
+lose = False
+
+alreadyGuessed = "" #set for guesses user already guessed
+alphabet = "abcdefghijklmnopqrstuvwxyz" #values user can only enter
+guessAllowed = 10 #given guesses allowed
+incorrectGuess = 0 #each incorrect guess will increase by 1
+gameIntro()
+
+numgames = int(input("How many rounds do you want? "))
+while numgames >0:
+    getWord()
+    numguesses = 10
+    while numguesses >0:
+        getGuess(alreadyGuessed, alphabet, guessAllowed, incorrectGuess)
+        numguesses -= 1
+    numgames = numgames -1 
+playAgain()
